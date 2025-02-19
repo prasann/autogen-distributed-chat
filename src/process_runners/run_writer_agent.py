@@ -2,7 +2,7 @@ import asyncio
 import logging
 import warnings
 
-from _agents import BaseGroupChatAgent
+from agents.base_group_chat_agent import BaseGroupChatAgent
 from _types import AppConfig, GroupChatMessage, MessageChunk, RequestToSpeak
 from _utils import get_serializers, load_config, set_all_log_levels
 from autogen_core import (

@@ -3,8 +3,8 @@ import logging
 import warnings
 
 import chainlit as cl  # type: ignore [reportUnknownMemberType] # This dependency is installed through instructions
-from _agents import MessageChunk, UIAgent
-from _types import AppConfig, GroupChatMessage, RequestToSpeak
+from agents.ui_agent import UIAgent
+from _types import AppConfig, GroupChatMessage, RequestToSpeak, MessageChunk
 from _utils import get_serializers, load_config, set_all_log_levels
 from autogen_core import (
     TypeSubscription,

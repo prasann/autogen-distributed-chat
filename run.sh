@@ -21,14 +21,14 @@ tmux select-pane -t distributed_group_chat:0.0
 
 # Activate the virtual environment and run the scripts in each pane
 run_in_venv() {
-    tmux send-keys -t $1 "source ./.venv/bin/activate && $2" C-m
+    tmux send-keys -t $1 "source .venv/bin/activate && PYTHONPATH=src $2" C-m
 }
 
-run_in_venv distributed_group_chat:0.0 "python run_host.py" C-m
-run_in_venv distributed_group_chat:0.1 "chainlit run run_ui.py --port 8001" C-m
-run_in_venv distributed_group_chat:0.3 "python run_writer_agent.py" C-m
-run_in_venv distributed_group_chat:0.4 "python run_editor_agent.py" C-m
-run_in_venv distributed_group_chat:0.2 "python run_group_chat_manager.py" C-m
+run_in_venv distributed_group_chat:0.0 "python src/process_runners/run_host.py" C-m
+run_in_venv distributed_group_chat:0.1 "chainlit run src/process_runners/run_ui.py --port 8001" C-m
+run_in_venv distributed_group_chat:0.3 "python src/process_runners/run_writer_agent.py" C-m
+run_in_venv distributed_group_chat:0.4 "python src/process_runners/run_editor_agent.py" C-m
+run_in_venv distributed_group_chat:0.2 "python src/process_runners/run_group_chat_manager.py" C-m
 
 # # Attach to the session
 tmux attach-session -t distributed_group_chat
