@@ -1,5 +1,6 @@
 from typing import List
 
+from _publisher import publish_message_to_ui_and_backend
 from _types import GroupChatMessage, RequestToSpeak, UIAgentConfig
 from autogen_core import MessageContext, RoutedAgent, message_handler
 from autogen_core.models import (

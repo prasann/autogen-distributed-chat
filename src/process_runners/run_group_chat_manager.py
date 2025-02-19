@@ -2,7 +2,8 @@ import asyncio
 import logging
 import warnings
 
-from _agents import GroupChatManager, publish_message_to_ui, publish_message_to_ui_and_backend
+from agents.group_chat_manager import GroupChatManager
+from _publisher import publish_message_to_ui, publish_message_to_ui_and_backend
 from _types import AppConfig, GroupChatMessage, MessageChunk, RequestToSpeak
 from _utils import get_serializers, load_config, set_all_log_levels
 from autogen_core import (
