@@ -24,10 +24,10 @@ ui_agent:
 
 client_config:
   model: "gpt-4o"
-  azure_endpoint: "https://{your-custom-endpoint}.openai.azure.com"
-  azure_deployment: "{your-azure-deployment}"
-  api_version: "2024-08-01-preview"
-  api_key: ""
+  azure_endpoint: "https://cba-openai-3ec2.openai.azure.com/"
+  azure_deployment: "gpt-4o"
+  api_version: "2024-05-01-preview"
+  api_key: "6d424071d610476caffdc981040f1f03"
   model_capabilities:
     vision: True
     function_calling: True
