@@ -1,0 +1,15 @@
+[project]
+name = "autogen-distributed-chat"
+version = "0.1.0"
+description = "AutoGen distributed chat"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "autogen>=0.9.9",
+    "autogen-core>=0.7.4",
+    "autogen-ext[openai]>=0.7.4",
+    "azure-identity>=1.24.0",
+    "chainlit<2.7.0",
+    "rich>=14.1.0",
+    "tiktoken>=0.11.0",
+]

@@ -17,7 +17,9 @@ from rich.markdown import Markdown
 async def main(config: AppConfig):
     set_all_log_levels(logging.ERROR)
     editor_agent_runtime = GrpcWorkerAgentRuntime(host_address=config.host.address)
-    editor_agent_runtime.add_message_serializer(get_serializers([RequestToSpeak, GroupChatMessage, MessageChunk]))  # type: ignore[arg-type]
+    editor_agent_runtime.add_message_serializer(
+        get_serializers([RequestToSpeak, GroupChatMessage, MessageChunk])
+    )  # type: ignore[arg-type]
     await asyncio.sleep(4)
     Console().print(Markdown("Starting **`Editor Agent`**"))
     await editor_agent_runtime.start()
@@ -33,10 +35,15 @@ async def main(config: AppConfig):
         ),
     )
     await editor_agent_runtime.add_subscription(
-        TypeSubscription(topic_type=config.editor_agent.topic_type, agent_type=editor_agent_type.type)
+        TypeSubscription(
+            topic_type=config.editor_agent.topic_type, agent_type=editor_agent_type.type
+        )
     )
     await editor_agent_runtime.add_subscription(
-        TypeSubscription(topic_type=config.group_chat_manager.topic_type, agent_type=editor_agent_type.type)
+        TypeSubscription(
+            topic_type=config.group_chat_manager.topic_type,
+            agent_type=editor_agent_type.type,
+        )
     )
 
     await editor_agent_runtime.stop_when_signal()
@@ -44,5 +51,7 @@ async def main(config: AppConfig):
 
 if __name__ == "__main__":
     set_all_log_levels(logging.ERROR)
-    warnings.filterwarnings("ignore", category=UserWarning, message="Resolved model mismatch.*")
+    warnings.filterwarnings(
+        "ignore", category=UserWarning, message="Resolved model mismatch.*"
+    )
     asyncio.run(main(load_config()))

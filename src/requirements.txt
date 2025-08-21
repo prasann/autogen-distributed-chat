@@ -1,7 +1,0 @@
-autogen_core==0.7.4
-autogen_ext==0.7.4
-azure_storage==0.37.0
-chainlit==2.6.0
-pydantic==2.11.7
-PyYAML==6.0.2
-rich==14.1.0

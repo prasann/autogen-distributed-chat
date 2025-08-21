@@ -11,6 +11,7 @@ from rich.console import Console
 from rich.markdown import Markdown
 from _publisher import publish_message_to_ui
 
+
 class GroupChatManager(RoutedAgent):
     def __init__(
         self,
@@ -32,7 +33,9 @@ class GroupChatManager(RoutedAgent):
         self._ui_config = ui_config
 
     @message_handler
-    async def handle_message(self, message: GroupChatMessage, ctx: MessageContext) -> None:
+    async def handle_message(
+        self, message: GroupChatMessage, ctx: MessageContext
+    ) -> None:
         assert isinstance(message.body, UserMessage)
 
         self._chat_history.append(message.body)  # type: ignore[reportargumenttype,arg-type]
@@ -50,7 +53,9 @@ class GroupChatManager(RoutedAgent):
             [
                 f"{topic_type}: {description}".strip()
                 for topic_type, description in zip(
-                    self._participant_topic_types, self._participant_descriptions, strict=True
+                    self._participant_topic_types,
+                    self._participant_descriptions,
+                    strict=True,
                 )
                 if topic_type != self._previous_participant_topic_type
             ]
@@ -72,17 +77,24 @@ Read the following conversation. Then select the next role from {participants} t
 Read the above conversation. Then select the next role from {participants} to play. if you think it's enough talking (for example they have talked for {self._max_rounds} rounds), return 'FINISH'.
 """
         system_message = SystemMessage(content=selector_prompt)
-        completion = await self._model_client.create([system_message], cancellation_token=ctx.cancellation_token)
+        completion = await self._model_client.create(
+            [system_message], cancellation_token=ctx.cancellation_token
+        )
 
-        assert isinstance(
-            completion.content, str
-        ), f"Completion content must be a string, but is: {type(completion.content)}"
+        assert isinstance(completion.content, str), (
+            f"Completion content must be a string, but is: {type(completion.content)}"
+        )
 
         if completion.content.upper() == "FINISH":
-            finish_msg = "I think it's enough iterations on the story! Thanks for collaborating!"
-            manager_message = f"\n{'-'*80}\n Manager ({id(self)}): {finish_msg}"
+            finish_msg = (
+                "I think it's enough iterations on the story! Thanks for collaborating!"
+            )
+            manager_message = f"\n{'-' * 80}\n Manager ({id(self)}): {finish_msg}"
             await publish_message_to_ui(
-                runtime=self, source=self.id.type, user_message=finish_msg, ui_config=self._ui_config
+                runtime=self,
+                source=self.id.type,
+                user_message=finish_msg,
+                ui_config=self._ui_config,
             )
             self.console.print(Markdown(manager_message))
             return
@@ -93,8 +105,12 @@ Read the above conversation. Then select the next role from {participants} to pl
                 selected_topic_type = topic_type
                 self._previous_participant_topic_type = selected_topic_type
                 self.console.print(
-                    Markdown(f"\n{'-'*80}\n Manager ({id(self)}): Asking `{selected_topic_type}` to speak")
+                    Markdown(
+                        f"\n{'-' * 80}\n Manager ({id(self)}): Asking `{selected_topic_type}` to speak"
+                    )
                 )
-                await self.publish_message(RequestToSpeak(), DefaultTopicId(type=selected_topic_type))
+                await self.publish_message(
+                    RequestToSpeak(), DefaultTopicId(type=selected_topic_type)
+                )
                 return
         raise ValueError(f"Invalid role selected: {completion.content}")
