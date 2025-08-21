@@ -3,6 +3,17 @@
 
 session_name="distributed_group_chat"
 
+if tmux has-session -t $session_name 2>/dev/null; then
+    echo "Session '$session_name' already exists. Kill it? [y/N]"
+    read answer
+    if [[ "$answer" =~ ^[Yy]$ ]]; then
+        tmux kill-session -t $session_name
+    else
+        echo "Aborting."
+        exit 1
+    fi
+fi
+
 tmux new-session -d -s $session_name
 
 # # Split the terminal into 2 vertical panes
