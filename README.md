@@ -8,7 +8,7 @@
 ## Usage
 
 1. Create the virtual environment and install dependencies using `uv sync`.
-2. Add your OpenAI endpoint and API key to `src/config.yaml`.
+2. Add your Azure OpenAI endpoint and API key to `src/config.yaml`. To use Entra ID auth, provide an empty API key.
 3. Call `./run.sh` to start the distributed group chat in tmux and open the UI in your browser.
 4. After you're done, call `./stop.sh` to stop the distributed group chat in tmux.
 
