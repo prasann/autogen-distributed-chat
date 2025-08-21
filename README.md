@@ -7,5 +7,6 @@
 
 ## Usage
 
-- `uv sync` to create the virtual environment and install dependencies.
-- `./run.sh` to start the distributed group chat and open the UI in your browser.
+1. Create the virtual environment and install dependencies using `uv sync`.
+2. Add your OpenAI endpoint and API key to `src/config.yaml`.
+3. Call `./run.sh` to start the distributed group chat and open the UI in your browser.
