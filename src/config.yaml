@@ -27,7 +27,7 @@ client_config:
   azure_endpoint: "https://cba-openai-3ec2.openai.azure.com/"
   azure_deployment: "gpt-4o"
   api_version: "2024-05-01-preview"
-  api_key: "6d424071d610476caffdc981040f1f03"
+  api_key: "ADD-YOUR-KEY-HERE"
   model_capabilities:
     vision: True
     function_calling: True
