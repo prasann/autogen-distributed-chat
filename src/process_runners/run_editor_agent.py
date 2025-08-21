@@ -17,7 +17,9 @@ from rich.markdown import Markdown
 async def main(config: AppConfig):
     set_all_log_levels(logging.ERROR)
     editor_agent_runtime = GrpcWorkerAgentRuntime(host_address=config.host.address)
-    editor_agent_runtime.add_message_serializer(get_serializers([RequestToSpeak, GroupChatMessage, MessageChunk]))  # type: ignore[arg-type]
+    editor_agent_runtime.add_message_serializer(
+        get_serializers([RequestToSpeak, GroupChatMessage, MessageChunk])
+    )  # type: ignore[arg-type]
     await asyncio.sleep(4)
     Console().print(Markdown("Starting **`Editor Agent`**"))
     await editor_agent_runtime.start()

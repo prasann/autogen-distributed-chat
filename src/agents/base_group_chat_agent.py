@@ -39,7 +39,9 @@ class BaseGroupChatAgent(RoutedAgent):
     ) -> None:
         self._chat_history.extend(
             [
-                UserMessage(content=f"Transferred to {message.body.source}", source="system"),  # type: ignore[union-attr]
+                UserMessage(
+                    content=f"Transferred to {message.body.source}", source="system"
+                ),  # type: ignore[union-attr]
                 message.body,
             ]
         )
@@ -62,7 +64,7 @@ class BaseGroupChatAgent(RoutedAgent):
             AssistantMessage(content=completion.content, source=self.id.type)
         )
 
-        console_message = f"\n{'-'*80}\n**{self.id.type}**: {completion.content}"
+        console_message = f"\n{'-' * 80}\n**{self.id.type}**: {completion.content}"
         self.console.print(Markdown(console_message))
 
         await publish_message_to_ui_and_backend(

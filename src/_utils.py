@@ -9,7 +9,9 @@ from autogen_ext.models.openai.config import AzureOpenAIClientConfiguration
 from azure.identity import DefaultAzureCredential, get_bearer_token_provider
 
 
-def load_config(file_path: str = os.path.join(os.path.dirname(__file__), "config.yaml")) -> AppConfig:
+def load_config(
+    file_path: str = os.path.join(os.path.dirname(__file__), "config.yaml"),
+) -> AppConfig:
     model_client = {}
     with open(file_path, "r") as file:
         config_data = yaml.safe_load(file)
@@ -24,7 +26,9 @@ def load_config(file_path: str = os.path.join(os.path.dirname(__file__), "config
             DefaultAzureCredential(), "https://cognitiveservices.azure.com/.default"
         )
 
-    app_config.client_config = AzureOpenAIClientConfiguration(**model_client, **aad_params)  # type: ignore[typeddict-item]
+    app_config.client_config = AzureOpenAIClientConfiguration(
+        **model_client, **aad_params
+    )  # type: ignore[typeddict-item]
     return app_config
 
 

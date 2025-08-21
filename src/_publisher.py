@@ -9,6 +9,7 @@ from autogen_core.models import (
 )
 from autogen_ext.runtimes.grpc import GrpcWorkerAgentRuntime
 
+
 async def publish_message_to_ui(
     runtime: RoutedAgent | GrpcWorkerAgentRuntime,
     source: str,
@@ -18,7 +19,9 @@ async def publish_message_to_ui(
     message_id = str(uuid4())
     # Stream the message to UI
     message_chunks = (
-        MessageChunk(message_id=message_id, text=token + " ", author=source, finished=False)
+        MessageChunk(
+            message_id=message_id, text=token + " ", author=source, finished=False
+        )
         for token in user_message.split()
     )
     for chunk in message_chunks:
